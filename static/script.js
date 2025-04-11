@@ -14,22 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let fullTranscript = '';
     let lastInterimTranscript = '';
     
-    // Add a premium features check
-    const isPremiumUser = false; // Set this based on user's subscription status
-    
-    function checkPremiumAccess() {
-        if (!isPremiumUser) {
-            return `
-                <div class="premium-overlay">
-                    <h3>Premium Feature</h3>
-                    <p>Get detailed feedback and model answers with our premium plan</p>
-                    <button onclick="showSubscriptionModal()">Upgrade Now</button>
-                </div>
-            `;
-        }
-        return '';
-    }
-    
     // Initialize speech recognition
     if ('webkitSpeechRecognition' in window) {
         recognition = new webkitSpeechRecognition();
@@ -149,16 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     async function getFeedback(answer) {
-        if (!isPremiumUser) {
-            // Show basic feedback only
-            feedback.innerHTML = `
-                <div class="basic-feedback">
-                    <p>Basic Feedback Available</p>
-                    ${checkPremiumAccess()}
-                </div>
-            `;
-            return;
-        }
         try {
             console.log("Sending for feedback:", {
                 position: currentPosition,
