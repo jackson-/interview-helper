@@ -59,10 +59,11 @@ def get_feedback():
         if not all([position, question, answer]):
             return jsonify({'error': 'Missing required information'}), 400
 
-        # Generate feedback using Claude
+        # Generate feedback using Claude with increased timeout
         message = client.messages.create(
             model="claude-3-7-sonnet-20250219",
             max_tokens=1000,
+            timeout=60,  # 60 second timeout
             system="""You are an expert interview coach. Analyze the candidate's answer and provide detailed, constructive feedback.
 Your feedback should include:
 1. Overall assessment of the answer
