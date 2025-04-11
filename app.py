@@ -31,7 +31,7 @@ def get_question():
         message = client.messages.create(
             model="claude-3-7-sonnet-20250219",
             max_tokens=150,
-            temperature=0.5,
+            temperature=1.0,
             system="You are an expert technical interviewer. Generate a challenging but relevant interview question for the specified position. Only return the question itself, nothing else.",
             messages=[
                 {

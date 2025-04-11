@@ -11,6 +11,56 @@
     <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=YOUR-CARBON-ID" id="_carbonads_js"></script>
 </head>
 <body>
+    <div id="consent-banner" class="consent-banner">
+        <div class="consent-content">
+            <p>We use cookies and similar technologies to improve your experience, analyze traffic, and show personalized ads. By clicking "Consent", you agree to our use of these technologies.</p>
+            <div class="consent-buttons">
+                <button id="doNotConsent" class="consent-button secondary">Do not consent</button>
+                <button id="consent" class="consent-button primary">Consent</button>
+            </div>
+            <button id="manageOptions" class="manage-options">Manage options</button>
+        </div>
+    </div>
+
+    <div id="options-modal" class="modal">
+        <div class="modal-content">
+            <h2>Privacy Preferences</h2>
+            <div class="option-group">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="essential" checked disabled>
+                    <span class="slider"></span>
+                </label>
+                <div class="option-text">
+                    <h3>Essential (Required)</h3>
+                    <p>Required for the website to function properly.</p>
+                </div>
+            </div>
+            <div class="option-group">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="analytics">
+                    <span class="slider"></span>
+                </label>
+                <div class="option-text">
+                    <h3>Analytics</h3>
+                    <p>Help us understand how visitors interact with our website.</p>
+                </div>
+            </div>
+            <div class="option-group">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="advertising">
+                    <span class="slider"></span>
+                </label>
+                <div class="option-text">
+                    <h3>Advertising</h3>
+                    <p>Allow personalized advertising and content.</p>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button id="savePreferences" class="consent-button primary">Save preferences</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Interview Practice Assistant</h1>
         

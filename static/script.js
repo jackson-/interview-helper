@@ -1,4 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const consentBanner = document.getElementById('consent-banner');
+    const optionsModal = document.getElementById('options-modal');
+    const consentButton = document.getElementById('consent');
+    const doNotConsentButton = document.getElementById('doNotConsent');
+    const manageOptionsButton = document.getElementById('manageOptions');
+    const savePreferencesButton = document.getElementById('savePreferences');
+    
+    // Show consent banner if no preference is saved
+    if (!localStorage.getItem('cookieConsent')) {
+        consentBanner.style.display = 'block';
+    }
+    
+    // Handle consent
+    consentButton.addEventListener('click', () => {
+        setConsent({
+            essential: true,
+            analytics: true,
+            advertising: true
+        });
+        consentBanner.style.display = 'none';
+    });
+    
+    // Handle do not consent
+    doNotConsentButton.addEventListener('click', () => {
+        setConsent({
+            essential: true,
+            analytics: false,
+            advertising: false
+        });
+        consentBanner.style.display = 'none';
+    });
+    
+    // Handle manage options
+    manageOptionsButton.addEventListener('click', () => {
+        optionsModal.style.display = 'block';
+        // Load saved preferences
+        const preferences = JSON.parse(localStorage.getItem('cookieConsent') || '{}');
+        document.getElementById('analytics').checked = preferences.analytics || false;
+        document.getElementById('advertising').checked = preferences.advertising || false;
+    });
+    
+    // Handle save preferences
+    savePreferencesButton.addEventListener('click', () => {
+        const preferences = {
+            essential: true,
+            analytics: document.getElementById('analytics').checked,
+            advertising: document.getElementById('advertising').checked
+        };
+        setConsent(preferences);
+        optionsModal.style.display = 'none';
+        consentBanner.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    optionsModal.addEventListener('click', (e) => {
+        if (e.target === optionsModal) {
+            optionsModal.style.display = 'none';
+        }
+    });
+    
+    function setConsent(preferences) {
+        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        
+        // Enable/disable Google Analytics based on preferences
+        if (preferences.analytics) {
+            // Enable analytics
+        }
+        
+        // Enable/disable ads based on preferences
+        if (preferences.advertising) {
+            // Enable ads
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        }
+    }
+    
+    // Check consent before loading ads
+    function checkConsentBeforeLoadingAds() {
+        const preferences = JSON.parse(localStorage.getItem('cookieConsent') || '{}');
+        return preferences.advertising === true;
+    }
+    
+    // Modify your existing ad loading code to check consent
+    const lazyAds = document.querySelectorAll('[data-lazy-ad]');
+    const lazyAdObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && checkConsentBeforeLoadingAds()) {
+                const adContainer = entry.target;
+                const adInsElement = document.createElement('ins');
+                adInsElement.className = 'adsbygoogle';
+                adInsElement.style.display = 'block';
+                adInsElement.dataset.adClient = 'pub-9333248385214452';
+                adInsElement.dataset.adSlot = 'YOUR-AD-SLOT';
+                adInsElement.dataset.adFormat = 'auto';
+                adInsElement.dataset.fullWidthResponsive = 'true';
+                
+                adContainer.appendChild(adInsElement);
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                
+                lazyAdObserver.unobserve(entry.target);
+            }
+        });
+    });
+
+    lazyAds.forEach(ad => lazyAdObserver.observe(ad));
+
     const startPracticeButton = document.getElementById('startPractice');
     const nextQuestionButton = document.getElementById('nextQuestion');
     const recordButton = document.getElementById('recordButton');
