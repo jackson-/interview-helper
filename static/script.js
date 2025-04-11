@@ -239,16 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function getFeedback(answer) {
         try {
-            console.log("Sending for feedback:", {
-                position: currentPosition,
-                question: currentQuestion.textContent,
-                answer: answer
-            });
-            
             statusText.textContent = 'Getting feedback...';
             feedback.innerHTML = '<p>Analyzing your answer...</p>';
             
-            const response = await fetch('https://interview-helper-three.vercel.app/api/get-feedback', {
+            // Start feedback generation
+            const startResponse = await fetch('/api/start-feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -257,19 +252,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     position: currentPosition,
                     question: currentQuestion.textContent,
                     answer: answer
-                }),
-                timeout: 60000
+                })
             });
             
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            if (!startResponse.ok) {
+                throw new Error(`HTTP error! status: ${startResponse.status}`);
             }
             
-            const data = await response.json();
-            if (data.error) throw new Error(data.error);
+            const startData = await startResponse.json();
+            if (startData.error) throw new Error(startData.error);
             
-            feedback.innerHTML = marked.parse(data.feedback);
-            statusText.textContent = 'Feedback ready';
+            // Poll for results
+            const requestId = startData.request_id;
+            let attempts = 0;
+            const maxAttempts = 60; // 30 seconds maximum (500ms * 60)
+            
+            const pollResult = async () => {
+                if (attempts >= maxAttempts) {
+                    throw new Error('Feedback generation timed out');
+                }
+                
+                const checkResponse = await fetch(`/api/check-feedback/${requestId}`);
+                const checkData = await checkResponse.json();
+                
+                if (checkData.status === 'complete') {
+                    feedback.innerHTML = marked.parse(checkData.feedback);
+                    statusText.textContent = 'Feedback ready';
+                    return;
+                } else if (checkData.status === 'error') {
+                    throw new Error(checkData.error);
+                } else if (checkData.status === 'not_found') {
+                    throw new Error('Feedback request not found');
+                }
+                
+                attempts++;
+                setTimeout(pollResult, 500); // Poll every 500ms
+            };
+            
+            await pollResult();
             
         } catch (error) {
             console.error('Error:', error);
@@ -277,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="error-message">
                     <p>Sorry, there was an error getting feedback. This might be because:</p>
                     <ul>
-                        <li>The response took too long (server timeout)</li>
+                        <li>The response took too long</li>
                         <li>There was a network error</li>
                         <li>The server encountered an error</li>
                     </ul>
