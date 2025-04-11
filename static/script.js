@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = 'Getting feedback...';
             feedback.innerHTML = '<p>Analyzing your answer...</p>';
             
-            const response = await fetch('/api/get-feedback', {
+            const response = await fetch('https://interview-helper-three.vercel.app/api/get-feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -258,17 +258,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     question: currentQuestion.textContent,
                     answer: answer
                 }),
+                timeout: 60000
             });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             
             const data = await response.json();
             if (data.error) throw new Error(data.error);
             
             feedback.innerHTML = marked.parse(data.feedback);
-            statusText.textContent = 'Ready for next question';
+            statusText.textContent = 'Feedback ready';
             
         } catch (error) {
             console.error('Error:', error);
-            feedback.innerHTML = '<p class="error">Error getting feedback. Please try again.</p>';
+            feedback.innerHTML = `
+                <div class="error-message">
+                    <p>Sorry, there was an error getting feedback. This might be because:</p>
+                    <ul>
+                        <li>The response took too long (server timeout)</li>
+                        <li>There was a network error</li>
+                        <li>The server encountered an error</li>
+                    </ul>
+                    <p>Please try again. If the problem persists, try a shorter answer or refresh the page.</p>
+                </div>
+            `;
             statusText.textContent = 'Error getting feedback';
         }
     }
