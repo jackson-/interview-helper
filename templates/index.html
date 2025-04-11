@@ -6,75 +6,24 @@
     <title>Interview Practice Assistant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Google AdSense Auto ads script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9333248385214452"
      crossorigin="anonymous"></script>
-    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=YOUR-CARBON-ID" id="_carbonads_js"></script>
 </head>
 <body>
-    <div id="consent-banner" class="consent-banner">
-        <div class="consent-content">
-            <p>We use cookies and similar technologies to improve your experience, analyze traffic, and show personalized ads. By clicking "Consent", you agree to our use of these technologies.</p>
-            <div class="consent-buttons">
-                <button id="doNotConsent" class="consent-button secondary">Do not consent</button>
-                <button id="consent" class="consent-button primary">Consent</button>
-            </div>
-            <button id="manageOptions" class="manage-options">Manage options</button>
-        </div>
-    </div>
-
-    <div id="options-modal" class="modal">
-        <div class="modal-content">
-            <h2>Privacy Preferences</h2>
-            <div class="option-group">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="essential" checked disabled>
-                    <span class="slider"></span>
-                </label>
-                <div class="option-text">
-                    <h3>Essential (Required)</h3>
-                    <p>Required for the website to function properly.</p>
-                </div>
-            </div>
-            <div class="option-group">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="analytics">
-                    <span class="slider"></span>
-                </label>
-                <div class="option-text">
-                    <h3>Analytics</h3>
-                    <p>Help us understand how visitors interact with our website.</p>
-                </div>
-            </div>
-            <div class="option-group">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="advertising">
-                    <span class="slider"></span>
-                </label>
-                <div class="option-text">
-                    <h3>Advertising</h3>
-                    <p>Allow personalized advertising and content.</p>
-                </div>
-            </div>
-            <div class="modal-buttons">
-                <button id="savePreferences" class="consent-button primary">Save preferences</button>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
         <h1>Interview Practice Assistant</h1>
         
-        <!-- Ad placement before the setup form -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="pub-9333248385214452"
-                 data-ad-slot="YOUR-AD-SLOT"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+        <!-- Consent Banner -->
+        <div id="consent-banner" class="consent-banner">
+            <div class="consent-content">
+                <p>We use cookies and similar technologies to improve your experience, analyze traffic, and show personalized ads. By clicking "Consent", you agree to our use of these technologies.</p>
+                <div class="consent-buttons">
+                    <button id="doNotConsent" class="consent-button secondary">Do not consent</button>
+                    <button id="consent" class="consent-button primary">Consent</button>
+                </div>
+                <button id="manageOptions" class="manage-options">Manage options</button>
+            </div>
         </div>
 
         <!-- Setup Form -->
@@ -84,19 +33,6 @@
                 <input type="text" id="position" placeholder="e.g., Senior Software Engineer, Product Manager">
             </div>
             <button id="startPractice" class="primary-button">Start Practice Session</button>
-        </div>
-
-        <!-- Ad placement between sections -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="pub-9333248385214452"
-                 data-ad-slot="YOUR-AD-SLOT"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
 
         <!-- Interview Section -->
@@ -124,59 +60,46 @@
             </div>
         </div>
 
-        <!-- Add a sponsored resources section -->
-        <div class="sponsored-resources">
-            <h3>Recommended Interview Resources</h3>
-            <div class="resource-cards">
-                <div class="resource-card">
-                    <h4>Interview Prep Course</h4>
-                    <p>Master technical interviews with our partner's comprehensive course</p>
-                    <a href="AFFILIATE-LINK" class="sponsored-link">Learn More</a>
+        <!-- Options Modal -->
+        <div id="options-modal" class="modal">
+            <div class="modal-content">
+                <h2>Privacy Preferences</h2>
+                <div class="option-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="essential" checked disabled>
+                        <span class="slider"></span>
+                    </label>
+                    <div class="option-text">
+                        <h3>Essential (Required)</h3>
+                        <p>Required for the website to function properly.</p>
+                    </div>
                 </div>
-                <!-- More sponsored resources -->
+                <div class="option-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="analytics">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="option-text">
+                        <h3>Analytics</h3>
+                        <p>Help us understand how visitors interact with our website.</p>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="advertising">
+                        <span class="slider"></span>
+                    </label>
+                    <div class="option-text">
+                        <h3>Advertising</h3>
+                        <p>Allow personalized advertising and content.</p>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="savePreferences" class="consent-button primary">Save preferences</button>
+                </div>
             </div>
-        </div>
-
-        <!-- Add lazy loading for ads below the fold -->
-        <div class="ad-container" data-lazy-ad>
-            <!-- Ad code here -->
-        </div>
-
-        <!-- Add cookie consent for GDPR compliance -->
-        <div id="cookie-consent" class="cookie-banner">
-            <p>This site uses cookies and shows advertisements to support our service.</p>
-            <button onclick="acceptCookies()">Accept</button>
-            <button onclick="rejectCookies()">Reject</button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-    // Lazy load ads
-    document.addEventListener('DOMContentLoaded', () => {
-        const lazyAds = document.querySelectorAll('[data-lazy-ad]');
-        const lazyAdObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Create and insert the ad
-                    const adContainer = entry.target;
-                    const adInsElement = document.createElement('ins');
-                    adInsElement.className = 'adsbygoogle';
-                    adInsElement.style.display = 'block';
-                    adInsElement.dataset.adClient = 'pub-9333248385214452';
-                    adInsElement.dataset.adSlot = 'YOUR-AD-SLOT';
-                    adInsElement.dataset.adFormat = 'auto';
-                    adInsElement.dataset.fullWidthResponsive = 'true';
-                    
-                    adContainer.appendChild(adInsElement);
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    
-                    lazyAdObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        lazyAds.forEach(ad => lazyAdObserver.observe(ad));
-    });
-    </script>
 </body>
 </html> 
