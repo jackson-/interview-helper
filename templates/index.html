@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Practice Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9333248385214452"
+     crossorigin="anonymous"></script>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=YOUR-CARBON-ID" id="_carbonads_js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Interview Practice Assistant</h1>
+        
+        <!-- Ad placement before the setup form -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="pub-9333248385214452"
+                 data-ad-slot="YOUR-AD-SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Setup Form -->
+        <div class="setup-form">
+            <div class="form-group">
+                <label for="position">What position are you interviewing for?</label>
+                <input type="text" id="position" placeholder="e.g., Senior Software Engineer, Product Manager">
+            </div>
+            <button id="startPractice" class="primary-button">Start Practice Session</button>
+        </div>
+
+        <!-- Ad placement between sections -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="pub-9333248385214452"
+                 data-ad-slot="YOUR-AD-SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Interview Section -->
+        <div class="practice-section" style="display: none;">
+            <div class="question-section">
+                <h2>Current Question:</h2>
+                <div id="currentQuestion" class="question-box"></div>
+                <button id="nextQuestion" class="secondary-button">Get Next Question</button>
+            </div>
+
+            <div class="recording-section">
+                <div class="status-container">
+                    <div id="status-indicator" class="status-indicator"></div>
+                    <p id="status-text">Click Record to answer the question</p>
+                </div>
+                <button id="recordButton" class="primary-button">Record Answer</button>
+            </div>
+
+            <div class="feedback-section">
+                <h2>Your Answer:</h2>
+                <div id="userAnswer" class="answer-box"></div>
+                
+                <h2>Feedback:</h2>
+                <div id="feedback" class="feedback-box"></div>
+            </div>
+        </div>
+
+        <!-- Add a sponsored resources section -->
+        <div class="sponsored-resources">
+            <h3>Recommended Interview Resources</h3>
+            <div class="resource-cards">
+                <div class="resource-card">
+                    <h4>Interview Prep Course</h4>
+                    <p>Master technical interviews with our partner's comprehensive course</p>
+                    <a href="AFFILIATE-LINK" class="sponsored-link">Learn More</a>
+                </div>
+                <!-- More sponsored resources -->
+            </div>
+        </div>
+
+        <!-- Add lazy loading for ads below the fold -->
+        <div class="ad-container" data-lazy-ad>
+            <!-- Ad code here -->
+        </div>
+
+        <!-- Add cookie consent for GDPR compliance -->
+        <div id="cookie-consent" class="cookie-banner">
+            <p>This site uses cookies and shows advertisements to support our service.</p>
+            <button onclick="acceptCookies()">Accept</button>
+            <button onclick="rejectCookies()">Reject</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+    // Lazy load ads
+    document.addEventListener('DOMContentLoaded', () => {
+        const lazyAds = document.querySelectorAll('[data-lazy-ad]');
+        const lazyAdObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Load ad when in viewport
+                    loadAd(entry.target);
+                    lazyAdObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        lazyAds.forEach(ad => lazyAdObserver.observe(ad));
+    });
+    </script>
+</body>
+</html> 
